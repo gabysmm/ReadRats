@@ -7,7 +7,7 @@ A aplicação foi projetada com foco em:
 
 - Escalabilidade futura
 - Separação de responsabilidades
-- Suporte a Web e Mobile
+- Suporte a Web e Mobile (futuro)
 - Código organizado e modular
 
 ### Tecnologias 
@@ -20,6 +20,16 @@ A aplicação foi projetada com foco em:
 - JWT 
 - Docker
 
+#### Front
+- Next.js (React Framework)
+- TypeScript
+- Axios (ou Fetch API, ainda a decidir)
+- JWT (armazenado no client)
+- Tailwind
+- React context (ou Zustand, ainda a decidir)
+
+---
+
 ### Arquitetura Backend
 
 A aplicaçao segue o padrão API REST em camadas, recebendo respostas em formato json e organizada de forma modular por domínio.
@@ -30,7 +40,7 @@ A aplicaçao segue o padrão API REST em camadas, recebendo respostas em formato
 3. Domain Layer: Models 
 4. Infrastrucure Layer: Banco de dados, autenticação JWT e container docker
 
-#### Estrutura de Pastas
+#### Estrutura de Pastas (Backend)
 
 ```plaintext
 readrats/
@@ -59,7 +69,7 @@ readrats/
 ├── manage.py
 ```
 
-#### Arquitetura em Camadas
+#### Diagrama de arquitetura (Backend)
 
 ```mermaid
 graph TD
@@ -92,5 +102,83 @@ graph TD
 
 ```
 
+#### Planos futuros
+- Evoluir para cache (Redis)
+- Evoluir para background jobs (Celery)
+---
+
+### Arquitetura Front
+O frontend do ReadRats será uma aplicação Web construída com Next.js, consumindo a API REST do backend.
+
+#### Padrão arquitetural
+Organização por domínio (igual backend). Onde, cada feature tem: 
+- Componentes
+- Serviços (API)
+- Hooks
+- Tipos
+
+#### Estrutura de pastas (Frontend)
+
+```plaintext
+src/
+│
+├── app/                      # Rotas (Next.js App Router)
+│   ├── login/
+│   ├── comunidades/
+│   ├── desafios/
+│   └── ranking/
+│
+├── features/                 # Funcionalidades por domínio
+│   ├── auth/
+│   │   ├── components/       # Componentes específicos
+│   │   ├── services/         # Comunicação com API
+│   │   ├── hooks/            # Lógica reutilizável
+│   │   └── types.ts          # Tipos TypeScript
+│   │
+│   ├── comunidades/
+│   ├── desafios/
+│   ├── posts/
+│   └── ranking/
+│
+├── shared/                   # Recursos compartilhados
+│   ├── components/           # Componentes reutilizáveis
+│   ├── ui/                   # Elementos de interface
+│   ├── hooks/                # Hooks globais
+│   └── utils/                # Funções utilitárias
+│
+├── services/                 # Configuração de serviços globais
+│   └── api.ts                # Configuração base do Axios
+│
+├── store/                    # Gerenciamento de estado global
+│   └── authStore.ts
+│
+└── types/                    # Tipos globais
+```
+
+#### Diagrama de Arquitetura (Frontend)
+
+```mermaid
+graph TD
+    User["Usuário"]
+
+    subgraph Frontend - Next.js
+        Pages["Pages (App Router)"]
+        Components["Componentes"]
+        Hooks["Custom Hooks"]
+        Services["API Services"]
+        Store["Global Store"]
+    end
+
+    Backend["Backend API - Django Ninja"]
+
+    User --> Pages
+    Pages --> Components
+    Components --> Hooks
+    Hooks --> Services
+    Services --> Backend
+    Hooks --> Store
+    Store --> Components
+
+```
 
 
