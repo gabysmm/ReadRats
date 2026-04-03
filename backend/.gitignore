@@ -11,3 +11,6 @@ __pycache__/
 
 # Migrations
 */migrations/
+
+#db
+db.sqlite3
