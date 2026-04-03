@@ -1,4 +1,13 @@
-# Ambientes virtuais
-.venv/
+# Venv
 venv/
+.venv/
 env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# Migrations
+*/migrations/
