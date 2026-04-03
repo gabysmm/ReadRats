@@ -5,7 +5,7 @@ from apps.users.models import User
 
 router = Router()
 
-@router.post("/register", response={201: RegisterOutput, 400: dict})
+@router.post("/register", auth=None, response={201: RegisterOutput, 400: dict})
 def register(request, data: RegisterInput):
     if User.objects.filter(email=data.email).exists():
         return 400, {"message": "Email já cadastrado!"}
