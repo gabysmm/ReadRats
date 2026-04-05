@@ -4,8 +4,10 @@ from .schemas import CreateCommunityInput, CreateCommunityOutput
 
 router = Router()
 
-@router.post("/", response={201: CreateCommunityOutput})
+@router.post("/", response={201: CreateCommunityOutput, 401: dict})
 def create_community(request, data: CreateCommunityInput):
+    if not request.user.is_authenticated:
+        return 401, {"message": "não autenticado"}
     community = Community.objects.create(
         name = data.name,
         description = data.description,
