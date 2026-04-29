@@ -1,3 +1,4 @@
+import warnings
 import pytest
 from ninja.testing import TestClient
 from api.community.routers import router 
@@ -39,3 +40,12 @@ def test_crete_community_invalid_auth(user):
         "type_community": "continuous"
     })
     assert response.status_code == 401
+    
+def funcao_antiga():
+    warnings.warn("deprecated function", DeprecationWarning)
+    return "CODIGO PRA DA ERRO"
+
+def test_usando_funcao_deprecada():
+    with pytest.warns(DeprecationWarning):
+        resultado = funcao_antiga()
+        assert resultado == "CODIGO PRA DA ERRO"
