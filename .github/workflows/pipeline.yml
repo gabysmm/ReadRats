@@ -18,5 +18,4 @@ jobs:
             - name: check deprecated code
               run: |
                 cd backend
-                flake8 .
-            - run: cd backend && python -m pytest tests/test_community.py -v
+                pytest -v -W error::DeprecationWarning
