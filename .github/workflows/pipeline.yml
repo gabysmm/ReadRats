@@ -15,4 +15,8 @@ jobs:
               with:
                 python-version: '3.12'
             - run: pip install -r backend/requirements.txt
+            - name: check deprecated code
+              run: |
+                cd backend
+                flake8 .
             - run: cd backend && python -m pytest tests/test_community.py -v
