@@ -15,4 +15,7 @@ jobs:
               with:
                 python-version: '3.12'
             - run: pip install -r backend/requirements.txt
-            - run: cd backend && python -m pytest tests/test_community.py -v
+            - name: check deprecated code
+              run: |
+                cd backend
+                pytest -v -W error::DeprecationWarning
