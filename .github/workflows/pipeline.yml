@@ -1,21 +1,42 @@
 name: ReadRats Workflow
 
 on:
-    push:
-        branches: ['**']
-    pull_request:
-        branches: [main]
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main]
 
 jobs:
-    test:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4 #vai pegar o codigo do repositorio
-            - uses: actions/setup-python@v5 
-              with:
-                python-version: '3.12'
-            - run: pip install -r backend/requirements.txt
-            - name: check deprecated code
-              run: |
-                cd backend
-                pytest -v -W error::DeprecationWarning
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4 #vai pegar o codigo do repositorio
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r backend/requirements.txt
+      - name: check deprecated code
+        run: |
+          cd backend
+          pytest -v -W error::DeprecationWarning
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout do código
+        uses: actions/checkout@v4
+
+      - name: executar OWASP dependency check
+        uses: dependency-check/DependencyCheck_Action@main
+        id: depcheck
+        with:
+          project: 'ReadRats'
+          path: './backend'
+          format: 'HTML'
+
+      - name: Fazer upload do relatório de segurança
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-check-report
+          path: ${{ github.workspace }}/reports
