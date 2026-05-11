@@ -31,8 +31,11 @@ jobs:
         id: depcheck
         with:
           project: 'ReadRats'
-          path: './backend'
           format: 'HTML'
+          args: |
+            --scan ./backend
+            --enableExperimental
+            --out ./reports
 
       - name: Fazer upload do relatório de segurança
         if: always()
