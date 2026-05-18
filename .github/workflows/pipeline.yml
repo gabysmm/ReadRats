@@ -10,7 +10,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4 #vai pegar o codigo do repositorio
+      - uses: actions/checkout@v6 #vai pegar o codigo do repositorio
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout do código
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: executar OWASP dependency check
         uses: dependency-check/DependencyCheck_Action@main
