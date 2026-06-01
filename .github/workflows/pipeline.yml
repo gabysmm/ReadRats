@@ -23,6 +23,15 @@ jobs:
         run: |
           cd backend
           ruff check .
+      - name: detectar código duplicado
+        run: |
+          cd backend
+          pylint \
+            --disable=all \
+            --enable=R0801 \
+            --min-similarity-lines=2 \
+            --ignore-paths='.*migrations.*' \
+            .
 
   security-scan:
     runs-on: ubuntu-latest
