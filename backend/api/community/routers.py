@@ -23,3 +23,9 @@ def create_community(request, data: CreateCommunityInput):
         role="admin",
     )
     return Status(201, community)
+
+def process_community(data):
+    if not data:
+        raise ValueError("invalid")
+
+    return data.strip()

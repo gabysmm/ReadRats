@@ -21,8 +21,17 @@ jobs:
           pytest -v -W error::DeprecationWarning
       - name: checar padrão de codificação com Ruff
         run: |
+           cd backend
+           ruff check . --fix
+      - name: detectar código duplicado
+        run: |
           cd backend
-          ruff check .
+          pylint \
+            --disable=all \
+            --enable=R0801 \
+            --min-similarity-lines=2 \
+            --ignore-paths='.*migrations.*' \
+            .
 
   security-scan:
     runs-on: ubuntu-latest
