@@ -22,7 +22,7 @@ jobs:
       - name: checar padrão de codificação com Ruff
         run: |
            cd backend
-           ruff check .
+           ruff check . --fix
       - name: detectar código duplicado
         run: |
           cd backend
