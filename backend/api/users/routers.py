@@ -17,9 +17,3 @@ def register(request, data: RegisterInput):
     )
     token = RefreshToken.for_user(user)
     return 201, {"access": str(token.access_token), "refresh": str(token)}
-
-def process_community(data):
-    if not data:
-        raise ValueError("invalid")
-
-    return data.strip()
