@@ -40,6 +40,11 @@ jobs:
         run: |
           cd backend
           python manage.py graph_models -a -g -o ../docs/uml.png
+      - name: Upload do diagrama UML
+        uses: actions/upload-artifact@v4
+        with:
+          name: uml-diagram
+          path: docs/uml.png
 
   security-scan:
     runs-on: ubuntu-latest
