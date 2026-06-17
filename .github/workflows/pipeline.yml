@@ -28,7 +28,7 @@ jobs:
           cd backend
           pylint \
             --disable=all \
-            --enable=R0801, C0114, C0115, C0116 \
+            --enable=R0801,C0114,C0115,C0116 \
             --min-similarity-lines=2 \
             --ignore-paths='.*migrations.*' \
             .
