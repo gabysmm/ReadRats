@@ -1,4 +1,6 @@
 """Testes para as rotas de comunidades."""
+import os
+
 import pytest
 from ninja.testing import TestClient
 
@@ -7,12 +9,14 @@ from apps.users.models import User
 
 client = TestClient(router)  # simula acesso a rota sem subir servidor
 
+TEST_USER_PASSWORD = os.environ.get("TEST_USER_PASSWORD", "test-password-123")
+
 
 @pytest.fixture
 def user(db):
     """Cria um usuário de teste no banco de dados."""
     return User.objects.create_user(
-        username="Jude", email="duarte@gmail.com", password="cruelprince"
+        username="Jude", email="duarte@gmail.com", password=TEST_USER_PASSWORD
     )
 
 

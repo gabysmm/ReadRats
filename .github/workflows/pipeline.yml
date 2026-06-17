@@ -58,6 +58,26 @@ jobs:
           name: dependency-check-report
           path: ${{ github.workspace }}/reports
 
+  generate-lockfile:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: instalar uv e gerar lock file
+        run: |
+          pip install uv
+          cd backend
+          uv lock
+      - name: commitar uv.lock se foi gerado ou alterado
+        uses: stefanzwi/git-auto-commit-action@v5
+        with:
+          commit_message: "ci: atualizar uv.lock"
+          file_pattern: "backend/uv.lock"
+
   sonarcloud:
     runs-on: ubuntu-latest
     steps:
