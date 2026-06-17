@@ -16,7 +16,7 @@ class Community(models.Model):
 
 
 class Membership(models.Model):
-    """Representa a participação de um usuário em uma comunidade com um papel definido."""
+    """Representa a participação de um usuário em uma comunidade."""
 
     ROLE_CHOICE = [("admin", "Admin"), ("normal", "Normal")]
     role = models.CharField(max_length=10, choices=ROLE_CHOICE)
