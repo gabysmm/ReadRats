@@ -1,3 +1,4 @@
+"""Rotas da API de comunidades."""
 from ninja import Router, Status
 
 from apps.community.models import Community, Membership
@@ -9,6 +10,7 @@ router = Router()
 
 @router.post("/", response={201: CreateCommunityOutput, 401: dict})
 def create_community(request, data: CreateCommunityInput):
+    """Cria uma nova comunidade e adiciona o criador como administrador."""
     if not request.user.is_authenticated:
         return Status(401, {"message": "não autenticado"})
     community = Community.objects.create(
@@ -25,6 +27,7 @@ def create_community(request, data: CreateCommunityInput):
     return Status(201, community)
 
 def process_community(data):
+    """Valida e normaliza os dados de entrada de uma comunidade."""
     if not data:
         raise ValueError("invalid")
 

@@ -1,3 +1,4 @@
+"""Testes para as rotas de comunidades."""
 import pytest
 from ninja.testing import TestClient
 
@@ -9,12 +10,14 @@ client = TestClient(router)  # simula acesso a rota sem subir servidor
 
 @pytest.fixture
 def user(db):
+    """Cria um usuário de teste no banco de dados."""
     return User.objects.create_user(
         username="Jude", email="duarte@gmail.com", password="cruelprince"
     )
 
 
 def test_create_community(user):
+    """Testa a criação de uma comunidade com dados válidos."""
     response = client.post(
         "/",
         json={
@@ -31,6 +34,7 @@ def test_create_community(user):
 
 
 def test_create_community_invalidy_type(user):
+    """Testa que um tipo de comunidade inválido retorna erro 422."""
     response = client.post(
         "/",
         json={
@@ -44,6 +48,7 @@ def test_create_community_invalidy_type(user):
 
 
 def test_crete_community_invalid_auth(user):
+    """Testa que criar comunidade sem autenticação retorna erro 401."""
     response = client.post(
         "/",
         json={

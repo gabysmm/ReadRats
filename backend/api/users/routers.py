@@ -1,3 +1,4 @@
+"""Rotas da API de usuários."""
 from ninja import Router
 from ninja_jwt.tokens import RefreshToken
 
@@ -10,6 +11,7 @@ router = Router()
 
 @router.post("/register", auth=None, response={201: RegisterOutput, 400: dict})
 def register(request, data: RegisterInput):
+    """Registra um novo usuário e retorna tokens JWT de acesso."""
     if User.objects.filter(email=data.email).exists():
         return 400, {"message": "Email já cadastrado!"}
     user = User.objects.create_user(

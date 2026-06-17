@@ -22,13 +22,14 @@ jobs:
       - name: checar padrão de codificação com Ruff
         run: |
            cd backend
+           ruff format .
            ruff check . --fix
-      - name: detectar código duplicado
+      - name: detectar código duplicado & Code smells
         run: |
           cd backend
           pylint \
             --disable=all \
-            --enable=R0801 \
+            --enable=R0801,C0114,C0115,C0116 \
             --min-similarity-lines=2 \
             --ignore-paths='.*migrations.*' \
             .
