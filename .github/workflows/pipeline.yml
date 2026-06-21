@@ -57,39 +57,3 @@ jobs:
         with:
           name: dependency-check-report
           path: ${{ github.workspace }}/reports
-
-  generate-lockfile:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: instalar uv e gerar lock file
-        run: |
-          pip install uv
-          cd backend
-          uv lock
-      - name: commitar uv.lock se foi gerado ou alterado
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add backend/uv.lock
-          git diff --staged --quiet || git commit -m "ci: atualizar uv.lock"
-          git push
-
-  sonarcloud:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

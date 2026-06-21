@@ -9,7 +9,7 @@ from apps.users.models import User
 
 client = TestClient(router)  # simula acesso a rota sem subir servidor
 
-TEST_USER_PASSWORD = os.environ.get("TEST_USER_PASSWORD", "test-password-123")
+TEST_USER_PASSWORD = os.environ.get("TEST_USER_PASSWORD")
 
 
 @pytest.fixture
