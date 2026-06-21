@@ -9,6 +9,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: test-secret-key-for-ci
+      TEST_USER_PASSWORD: test-user-password
     steps:
       - uses: actions/checkout@v6 #vai pegar o codigo do repositorio
       - uses: actions/setup-python@v5
