@@ -14,3 +14,6 @@ __pycache__/
 
 #db
 db.sqlite3
+
+#Certificado SSL
+certs/key.pem
