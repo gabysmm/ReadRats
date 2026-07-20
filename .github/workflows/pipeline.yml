@@ -14,7 +14,7 @@ jobs:
       TEST_USER_PASSWORD: test-user-password
     steps:
       - uses: actions/checkout@v6 #vai pegar o codigo do repositorio
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - name: instalar graphviz
